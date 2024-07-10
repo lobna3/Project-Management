@@ -6,9 +6,11 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 const port = 5000
 
+const bodyParser = require('body-parser');
 const usersRoutes = require ('./routes/user.js')
 
 const db = require('./orm/index.js')
+app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
     res.send("Hello new Projekt Managments")
