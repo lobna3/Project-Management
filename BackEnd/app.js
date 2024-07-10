@@ -6,12 +6,15 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 const port = 5000
 
+const usersRoutes = require ('./routes/user.js')
+
 const db = require('./orm/index.js')
 
 app.get("/", (req, res) => {
     res.send("Hello new Projekt Managments")
 })
 
+app.use('/api/users',usersRoutes)
 
 app.listen(  port, () => {
     console.log(`server listenning on port ${port}`)
