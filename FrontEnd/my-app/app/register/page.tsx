@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import Link from 'next/link'
 
 interface User {
    
@@ -24,6 +25,7 @@ const Register = () => {
             body: JSON.stringify(newData) // stringify JSON object
 
         });
+       
 
         if (!res.ok) {
             throw new Error('Failed to fetch data');
@@ -103,11 +105,11 @@ const Register = () => {
                                 password: password,
                                 role: 'Admin',
                             })
-                        }} >Create</button>
+                        }} >Register</button>
 
 
 
-                    <h3 className='mt-10 ml-24'>Already have an account? </h3>
+                    <h3 className='mt-10 ml-24'>Already have an account? <Link href='/login' className="font-bold text-sky-400 ml-1">Login</Link> </h3>
                 </form>
             </div>
         </div>
