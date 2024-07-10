@@ -2,11 +2,11 @@
 
 import React, { useState } from "react"
 import Link from "next/link"
+import { jwtDecode } from "jwt-decode";
 
 interface User {
     email: string,
     password: string
-  
 }
 
 const Login = () => {
@@ -14,6 +14,7 @@ const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error,setError]=useState('')
+    const [user,setUser]=useState({})
 
     async function postData(newData: User) {
         const res = await fetch('http://127.0.0.1:5000/api/users/login', {
@@ -24,8 +25,13 @@ const Login = () => {
             body: JSON.stringify(newData) // stringify JSON object
 
         });
-
-        console.log(res)
+        const data = await res.json(); // Parse JSON response
+        localStorage.setItem('token', data.token); // Assuming the response has a 'token' field
+        localStorage.setItem('isAuthenticated', 'true'); // Store as string
+        const decodedToken = jwtDecode(data.token); // Decode JWT token
+        setUser(decodedToken)
+        console.log(user)
+        
         if (!res.ok) {
             throw new Error('Failed to fetch data');
         }
