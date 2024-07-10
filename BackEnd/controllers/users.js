@@ -1,10 +1,13 @@
 const {User} = require ('../orm')
 
 
+
 module.exports={
     getAllUsers: async (req, res) => {
         try {
-          const users = await User.findAll();
+          const users = await User.findAll({
+            order: [["createdAt", "DESC"]],
+          });
           res.status(200).json(users);
         } catch (error) {
           console.log(error);
