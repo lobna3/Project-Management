@@ -4,6 +4,7 @@ import React, { useState } from "react"
 import Link from "next/link"
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from 'next/navigation'
+import { MdError } from "react-icons/md";
 
 interface User {
     email: string,
@@ -14,39 +15,47 @@ const Login = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [error,setError]=useState('')
-    const [user,setUser]=useState({})
+    const [error, setError] = useState('')
+    const [user, setUser] = useState({})
     const router = useRouter()
 
     async function postData(newData: User) {
-        const res = await fetch('http://127.0.0.1:5000/api/users/login', {
-            method: 'POST', // specify the HTTP method
-            headers: {
-                'Content-Type': 'application/json' // indicate the content type of the request body
-            },
-            body: JSON.stringify(newData) // stringify JSON object
-
-        });
-        const data = await res.json(); // Parse JSON response
-        localStorage.setItem('token', data.token); // Assuming the response has a 'token' field
-        localStorage.setItem('isAuthenticated', 'true'); // Store as string
-        const decodedToken = jwtDecode(data.token); // Decode JWT token
-        setUser(decodedToken)
-        console.log(user)
-        
-        if (!res.ok) {
-            throw new Error('Failed to fetch data');
+        try {
+            const res = await fetch('http://127.0.0.1:5000/api/users/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newData)
+            });
+    
+            const data = await res.json();
+    
+            if (!res.ok) {
+                throw new Error(data.error || 'Failed to login');
+            }
+    
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('isAuthenticated', 'true');
+            const decodedToken = jwtDecode<{ email: string }>(data.token);
+            setUser(decodedToken);
+            console.log(decodedToken);
+    
+            router.push('/');
+            return data;
+        } catch (err: any) { // Specify the type of 'err' explicitly
+            console.error('Login failed:', err);
+            setError(err.message);
         }
-       
-        return res.json(); // parse the JSON response
     }
-
 
     return (
         <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                 <img src="" className='mx-auto h-10 w-auto'></img>
-                <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Login in to Projekt Managments</h2>
+                <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Login in to Projet Managments</h2>
+                {error && <span className="error-message mt-8 flex items-center justify-center bg-[#EF665B] p-2 w-68 text-sm font-bold text-[#fff] rounded-lg" id="name-error"><MdError size={23} className='mr-3' /> {error}</span>}
+
             </div>
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -71,11 +80,12 @@ const Login = () => {
                 </form>
                 <div>
                     <button className="flex mt-4 w-full justify-center rounded-md bg-sky-400 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm 
-                    " onClick={()=>{postData({
-                        email:email,
-                        password:password
-                    }), router.push('/')
-                    }}>Login</button>
+                    " onClick={() => {
+                            postData({
+                                email: email,
+                                password: password
+                            })
+                        }}>Login</button>
                 </div>
 
                 <h3 className="mt-10 text-center text-sm text-gray-500">
