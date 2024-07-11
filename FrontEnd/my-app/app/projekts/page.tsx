@@ -2,13 +2,12 @@
 
 import React from "react"
 import AllProjk from "./allprojekts"
-import Nav from "../components/Nav"
+
 const AllProjekts = () => {
 
     return (
         <div>
-            <Nav/>
-           <AllProjk/>
+            <AllProjk/>
         </div>
     )
 }
