@@ -50,10 +50,12 @@ const Login = () => {
     }
 
     return (
+        <div className="bg-sky">
+             <header className="absolute inset-x-0 top-0 z-50">
         <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                 <img src="" className='mx-auto h-10 w-auto'></img>
-                <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Login in to Projet Managments</h2>
+                <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Login in to Projet Managment</h2>
                 {error && <span className="error-message mt-8 flex items-center justify-center bg-[#EF665B] p-2 w-68 text-sm font-bold text-[#fff] rounded-lg" id="name-error"><MdError size={23} className='mr-3' /> {error}</span>}
 
             </div>
@@ -79,7 +81,7 @@ const Login = () => {
 
                 </form>
                 <div>
-                    <button className="flex mt-4 w-full justify-center rounded-md bg-sky-400 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm 
+                    <button className="flex mt-4 w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm 
                     " onClick={() => {
                             postData({
                                 email: email,
@@ -89,9 +91,11 @@ const Login = () => {
                 </div>
 
                 <h3 className="mt-10 text-center text-sm text-gray-500">
-                    Not a member? <Link href='/register' className="font-bold text-sky-400 ml-1">Register</Link></h3>
+                    Not a member? <Link href='/register' className="font-bold text-indigo-600 ml-1">Register</Link></h3>
 
             </div>
+        </div>
+        </header>
         </div>
     )
 }
