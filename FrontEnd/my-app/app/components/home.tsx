@@ -11,10 +11,8 @@ const HomePage = () => {
                     <div className="flex lg:flex-1">
                         <Link href="/" className="-m-1.5 p-1.5">
                             <span className="sr-only">Your Company</span>
-                            <img className="h-20 w-auto" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqDYK82NE0H_ziqmjkAaNs00bCmblPdJzw7w&s" alt="" />
-                           
+                            <img className="h-20 w-auto" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqDYK82NE0H_ziqmjkAaNs00bCmblPdJzw7w&s" alt="" />  
                         </Link>
-                      
                     </div>
                     <div className="flex lg:hidden">
                         <button type="button" className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
@@ -26,7 +24,7 @@ const HomePage = () => {
 
                     </div>
                     <div className="hidden lg:flex lg:gap-x-12">
-                        <Link href="/" className="text-sm font-semibold leading-6 text-gray-900">Projekts</Link>
+                        <Link href="/projekts" className="text-sm font-semibold leading-6 text-gray-900">Projekts</Link>
                         <Link href="/users" className="text-sm font-semibold leading-6 text-gray-900">Users</Link>
 
                     </div>
