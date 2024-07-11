@@ -3,6 +3,7 @@
 import React, { useState } from "react"
 import Link from "next/link"
 import { jwtDecode } from "jwt-decode";
+import { useRouter } from 'next/navigation'
 
 interface User {
     email: string,
@@ -15,6 +16,7 @@ const Login = () => {
     const [password, setPassword] = useState('')
     const [error,setError]=useState('')
     const [user,setUser]=useState({})
+    const router = useRouter()
 
     async function postData(newData: User) {
         const res = await fetch('http://127.0.0.1:5000/api/users/login', {
@@ -72,7 +74,8 @@ const Login = () => {
                     " onClick={()=>{postData({
                         email:email,
                         password:password
-                    })}}>Login</button>
+                    }), router.push('/')
+                    }}>Login</button>
                 </div>
 
                 <h3 className="mt-10 text-center text-sm text-gray-500">
