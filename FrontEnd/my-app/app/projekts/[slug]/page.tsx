@@ -20,7 +20,7 @@ const initialProjectState: Project = {
     createdAt: "",
     description: "",
    
-};
+}
 
 export default function OneProjekt({ params }: { params: { slug: string } }) {
     const [projekt, setProjekt] = useState<Project>(initialProjectState);
