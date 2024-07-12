@@ -31,6 +31,26 @@ module.exports ={
         }
       },
 
+      addProjektUpload: async (req, res, imageUrl) => {
+        try {
+          // Create new Projekt with image URL
+          const newProjekt = await Projekt.create({
+            title: req.body.title,
+            description: req.body.description,
+            imageUrl: imageUrl, // Save the Cloudinary image URL
+            category: req.body.category,
+            evaluation: req.body.evaluation,
+            user_id: req.body.user_id
+          });
+          // Respond with created Projekt
+          res.status(201).json(newProjekt);
+        } catch (error) {
+          // Handle errors
+          console.error('Error adding projekt:', error);
+          res.status(500).json({ error: error.message });
+        }
+      },
+
       getOneProjekt: async (req, res) => {
         try {
           const projekt = await Projekt.findByPk(req.params.id,{
