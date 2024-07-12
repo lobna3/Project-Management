@@ -30,7 +30,7 @@ db.User.hasMany(db.Projekt, {
 })
 
 db.Projekt.belongsTo(db.User, {
-    as: "users",
+    as: "user",
     foreignKey: "user_id",
     onDelete: "CASCADE",
 })
@@ -42,7 +42,7 @@ db.Projekt.hasMany(db.Task,{
     onDelete: "CASCADE",
 })
 db.Task.belongsTo(db.Projekt,{
-    as: "projekts",
+    as: "projekt",
     foreignKey: "projekt_id",
     onDelete: "CASCADE",
 })
