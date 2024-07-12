@@ -1,25 +1,47 @@
 'use client'
 
-import Nav from "@/app/components/Nav"
-import { useEffect, useState } from "react"
-import axios from "axios"
+import Nav from "@/app/components/Nav";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import moment from 'moment';
+
+interface Project {
+    title: string;
+    category: string;
+    evaluation: string;
+    createdAt: string;
+    description: string;
+}
+
+const initialProjectState: Project = {
+    title: "",
+    category: "",
+    evaluation: "",
+    createdAt: "",
+    description: "",
+   
+};
 
 export default function OneProjekt({ params }: { params: { slug: string } }) {
+    const [projekt, setProjekt] = useState<Project>(initialProjectState);
 
-    const [projekt, setProjekt] = useState({})
-    const oneProjekt = (id: string) => {
-        axios.get(`http://127.0.0.1:5000/api/projekts/getAll/${id}`).then((response) => {
-            console.log(response.data)
-            setProjekt(response.data)
-        }).catch((error) => { console.log(error) })
-    }
+    const fetchProject = async (id: string) => {
+        try {
+            const response = await axios.get(`http://127.0.0.1:5000/api/projekts/getAll/${id}`);
+            setProjekt(response.data);
+        } catch (error) {
+            console.error('Error fetching project:', error);
+        }
+    };
 
-    useEffect(()=>{
-        oneProjekt(params.slug)
-    },[])
+    useEffect(() => {
+        if (params.slug) {
+            fetchProject(params.slug);
+        }
+    }, [params.slug]);
 
     return (
-        <div>
+        <>
             <Nav />
             <div className="px-4 sm:px-0">
                 <h3 className="text-base font-semibold leading-7 text-gray-900">Projekt Information</h3>
@@ -27,34 +49,36 @@ export default function OneProjekt({ params }: { params: { slug: string } }) {
             </div>
             <div className="mt-6 border-t border-gray-100">
                 <dl className="divide-y divide-gray-100">
+                    {/* Display project details */}
                     <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                        <dt className="text-sm font-medium leading-6 text-gray-900">Full name</dt>
-                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">Margot Foster</dd>
+                        <dt className="text-sm font-medium leading-6 text-gray-900">Title</dt>
+                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{projekt.title}</dd>
                     </div>
                     <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                        <dt className="text-sm font-medium leading-6 text-gray-900">Application for</dt>
-                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">Backend Developer</dd>
+                        <dt className="text-sm font-medium leading-6 text-gray-900">Category</dt>
+                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{projekt.category}</dd>
                     </div>
                     <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                        <dt className="text-sm font-medium leading-6 text-gray-900">Email address</dt>
-                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">margotfoster@example.com</dd>
+                        <dt className="text-sm font-medium leading-6 text-gray-900">Evaluation</dt>
+                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{projekt.evaluation}</dd>
                     </div>
                     <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                        <dt className="text-sm font-medium leading-6 text-gray-900">Salary expectation</dt>
-                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">$120,000</dd>
+                        <dt className="text-sm font-medium leading-6 text-gray-900">Date</dt>
+                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{moment(projekt.createdAt).format("DD MMM YYYY HH:mm:ss")}</dd>
                     </div>
                     <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                         <dt className="text-sm font-medium leading-6 text-gray-900">About</dt>
-                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim incididunt cillum culpa consequat. Excepteur qui ipsum aliquip consequat sint. Sit id mollit nulla mollit nostrud in ea officia proident. Irure nostrud pariatur mollit ad adipisicing reprehenderit deserunt qui eu.</dd>
+                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{projekt.description}</dd>
                     </div>
                     <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                         <dt className="text-sm font-medium leading-6 text-gray-900">Attachments</dt>
                         <dd className="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                             <ul role="list" className="divide-y divide-gray-100 rounded-md border border-gray-200">
+                                {/* List attachments */}
                                 <li className="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-6">
                                     <div className="flex w-0 flex-1 items-center">
                                         <svg className="h-5 w-5 flex-shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                            <path fill-rule="evenodd" d="M15.621 4.379a3 3 0 00-4.242 0l-7 7a3 3 0 004.241 4.243h.001l.497-.5a.75.75 0 011.064 1.057l-.498.501-.002.002a4.5 4.5 0 01-6.364-6.364l7-7a4.5 4.5 0 016.368 6.36l-3.455 3.553A2.625 2.625 0 119.52 9.52l3.45-3.451a.75.75 0 111.061 1.06l-3.45 3.451a1.125 1.125 0 001.587 1.595l3.454-3.553a3 3 0 000-4.242z" clip-rule="evenodd" />
+                                            {/* SVG icon */}
                                         </svg>
                                         <div className="ml-4 flex min-w-0 flex-1 gap-2">
                                             <span className="truncate font-medium">resume_back_end_developer.pdf</span>
@@ -65,28 +89,12 @@ export default function OneProjekt({ params }: { params: { slug: string } }) {
                                         <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">Download</a>
                                     </div>
                                 </li>
-                                <li className="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-6">
-                                    <div className="flex w-0 flex-1 items-center">
-                                        <svg className="h-5 w-5 flex-shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                            <path fill-rule="evenodd" d="M15.621 4.379a3 3 0 00-4.242 0l-7 7a3 3 0 004.241 4.243h.001l.497-.5a.75.75 0 011.064 1.057l-.498.501-.002.002a4.5 4.5 0 01-6.364-6.364l7-7a4.5 4.5 0 016.368 6.36l-3.455 3.553A2.625 2.625 0 119.52 9.52l3.45-3.451a.75.75 0 111.061 1.06l-3.45 3.451a1.125 1.125 0 001.587 1.595l3.454-3.553a3 3 0 000-4.242z" clip-rule="evenodd" />
-                                        </svg>
-                                        <div className="ml-4 flex min-w-0 flex-1 gap-2">
-                                            <span className="truncate font-medium">coverletter_back_end_developer.pdf</span>
-                                            <span className="flex-shrink-0 text-gray-400">4.5mb</span>
-                                        </div>
-                                    </div>
-                                    <div className="ml-4 flex-shrink-0">
-                                        <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">Download</a>
-                                    </div>
-                                </li>
+                                {/* Add more attachments */}
                             </ul>
                         </dd>
                     </div>
                 </dl>
             </div>
-        </div>
-
-    )
-
+        </>
+    );
 }
-
