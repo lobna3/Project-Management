@@ -41,7 +41,7 @@ const Login = () => {
             setUser(decodedToken);
             console.log(decodedToken);
     
-            router.push('/');
+            router.push('/projekts');
             return data;
         } catch (err: any) { // Specify the type of 'err' explicitly
             console.error('Login failed:', err);
