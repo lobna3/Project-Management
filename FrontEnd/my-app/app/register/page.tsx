@@ -81,7 +81,7 @@ const Register = () => {
     <div className='flex flex-col justify-center items-center'>
       <div className='sub-tit flex flex-col mt-8 p-2 items-center justify-center gap-4'>
       <img src="" className='mx-auto h-10 w-auto'></img>
-      <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Register in to Projet Managment</h2>
+      <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Register in to Project Managment</h2>
         {error && (
           <span className='error-message flex items-center justify-center bg-[#EF665B] p-2 w-64 text-sm font-bold text-[#fff] rounded-lg'>
             <MdError size={23} className='mr-3' />
@@ -150,7 +150,7 @@ const Register = () => {
 
           <button
             type='submit'
-            className='ml-28 mt-8 bg-indigo-600 hover:bg-sky-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
+            className='ml-28 mt-8 bg-blue-900 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
           >
             Register
           </button>

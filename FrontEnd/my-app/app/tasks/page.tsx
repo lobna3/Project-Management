@@ -49,7 +49,7 @@ const Tasks = () => {
                 <div className="w-full mb-1">
                     <div className="mb-4">
                         <Nav />
-                        <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">All Pojekts with Tasks</h1>
+                        <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">All Pojects with Tasks</h1>
                     </div>
                 </div>
             </div>
@@ -73,10 +73,10 @@ const Tasks = () => {
                                             User Email
                                         </th>
                                         <th scope="col" className="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                            Projekt title
+                                            Project title
                                         </th>
                                         <th scope="col" className="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                            Projekt Evaluation
+                                            Project Evaluation
                                         </th>
                                         <th scope="col" className="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
                                             Tasks Title

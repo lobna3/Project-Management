@@ -73,7 +73,7 @@ const AllProjk = () => {
                 <div className="w-full mb-1">
                     <div className="mb-4">
                         <Nav />
-                        <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">All pojekts</h1>
+                        <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">All pojects</h1>
                     </div>
                     <div className="items-center justify-between block sm:flex md:divide-x md:divide-gray-100 dark:divide-gray-700">
                         <div className="flex items-center mb-4 sm:mb-0">
@@ -100,7 +100,7 @@ const AllProjk = () => {
                         <button onClick={() => router.push('/projekts/addProjekt')} id="createProductButton" type="submit" className="text-white bg-blue-900 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
                             data-drawer-target="drawer-create-product-default" data-drawer-show="drawer-create-product-default" aria-controls="drawer-create-product-default" data-drawer-placement="right"
                         >
-                            Add new projekt
+                            Add new project
                         </button>
                     </div>
 
@@ -127,7 +127,7 @@ const AllProjk = () => {
                                             User Email
                                         </th>
                                         <th scope="col" className="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                            Projekt title
+                                            Project title
                                         </th>
                                         <th scope="col" className="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
                                             Category
