@@ -31,7 +31,7 @@ const CreateProjekt = () => {
             data.append("imageUrl", imageUrl);
             data.append("category", category);
             data.append("evaluation", evaluation);
-            data.append("user_id", "12");
+            data.append("user_id", "14");
 
             const config = {
                 headers: {

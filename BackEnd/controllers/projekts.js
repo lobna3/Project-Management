@@ -9,7 +9,7 @@ module.exports ={
             order: [["createdAt", "DESC"]],
             include: [
               {
-                model: User, as: "user", attributes: ["name", "email"],
+                model: User, as: "user", attributes: ["name", "email","role"],
               }
             ]
           });
@@ -56,7 +56,7 @@ module.exports ={
           const projekt = await Projekt.findByPk(req.params.id,{
             include: [
                 {
-                  model: User, as: "user", attributes: ["name", "email"],
+                  model: User, as: "user", attributes: ["name", "email","role"],
                 }
               ]
           })

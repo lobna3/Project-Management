@@ -35,8 +35,8 @@ export default function UpdateProjekt({ params }: { params: { slug: string } }) 
     const router = useRouter()
 
 
-    const updateProjekt = (id: string) => {
-        axios.put(`http://127.0.0.1:5000/api/projekts/${id}`).then((response) => {
+    const updateProjekt = (id: string,newData:any) => {
+        axios.put(`http://127.0.0.1:5000/api/projekts/${id}`,newData).then((response) => {
             console.log('Projekt updated successfully', response.data)
             router.push('/projekts')
         }).catch((error) => { console.log(error) })
@@ -149,7 +149,14 @@ export default function UpdateProjekt({ params }: { params: { slug: string } }) 
                     </div>
 
                     <button className=" ml-28 mt-8 bg-blue-800 hover:bg-blue text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" value="submit" onClick={() => {
-                        updateProjekt(params.slug)
+                        updateProjekt(params.slug,{
+                            title:title, 
+                            category: category,
+                            evaluation: evaluation,
+                            description: description,
+                            imageUrl: imageUrl,
+                           
+                        })
                     }}>Update Projekt</button>
                 </div>
 
