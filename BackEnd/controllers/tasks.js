@@ -38,7 +38,7 @@ module.exports = {
                     {
                         model: User, as: "user", attributes: ["name", "email", "role"],
                     }, {
-                        model: Task, as: "tasks", attributes: ["title", "description"]
+                        model: Task, as: "tasks", attributes: ["id","title", "description"]
                     }
                 ]
             });
@@ -56,7 +56,7 @@ module.exports = {
                     {
                         model: User, as: "user", attributes: ["name", "email", "role"],
                     },{
-                        model: Task, as: "tasks", attributes: ["title", "description"]
+                        model: Task, as: "tasks", attributes: ["id","title", "description"]
                     }
                 ]
             })
@@ -66,5 +66,24 @@ module.exports = {
             res.status(500).send("Failed to load resource");
         }
     },
+
+    deleteTask: async (req, res) => {
+        const { id } = req.params;
+        try {
+          // Find the projekt by its primary key (id) and delete it
+          const deletedProjekt = await Task.findByPk(id);
+    
+          if (!deletedProjekt) {
+            return res.status(404).send("Projekt not found");
+          }
+    
+          await deletedProjekt.destroy();
+    
+          res.status(200).json({ message: "Task deleted successfully" });
+        } catch (error) {
+          console.error(error);
+          res.status(500).send("Failed to delete projekt");
+        }
+      },
 
 }

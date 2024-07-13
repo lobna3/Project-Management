@@ -7,6 +7,24 @@ import moment from 'moment';
 import { useRouter } from 'next/navigation'
 import Alert from "../components/alert";
 import Nav from "../components/Nav";
+
+interface Projekt {
+    
+    id: string,
+    title: string,
+    description: string,
+    imageUrl: string,
+    category: string,
+    evaluation: string,
+    user_id: number,
+    createdAt: Date,
+    updatedAt: Date,
+    user: {
+        name: string,
+        email: string,
+        role: string
+    }}
+
 const AllProjk = () => {
 
     const [projekts, setProjekts] = useState([])
@@ -74,7 +92,7 @@ const AllProjk = () => {
                                 </div>
                             </div>
                         </div>
-                        <button onClick={() => router.push('/projekts/addProjekt')} id="createProductButton" type="submit" className="text-white bg-blue-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
+                        <button onClick={() => router.push('/projekts/addProjekt')} id="createProductButton" type="submit" className="text-white bg-blue-900 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
                             data-drawer-target="drawer-create-product-default" data-drawer-show="drawer-create-product-default" aria-controls="drawer-create-product-default" data-drawer-placement="right"
                         >
                             Add new projekt
@@ -124,7 +142,7 @@ const AllProjk = () => {
                                     </tr>
                                 </thead>
                                 <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                                    {projekts.map((ele: any) =>
+                                    {projekts.map((ele: Projekt) =>
                                         <tr className="hover:bg-gray-100 dark:hover:bg-gray-700" key={ele.id}>
                                             <td className="w-4 p-4">
                                                 <div className="flex items-center">
@@ -146,10 +164,10 @@ const AllProjk = () => {
                                             </td>
                                             <td className="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{moment(ele.createdAt).format("DD MM YYYY hh:mm:ss")}</td>
                                             <td className="p-4 space-x-2 whitespace-nowrap">
-                                                <button type="button" id="updateProductButton" data-drawer-target="drawer-update-product-default" data-drawer-show="drawer-update-product-default" aria-controls="drawer-update-product-default" data-drawer-placement="right" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-blue-500 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                                                <button type="button" id="updateProductButton" data-drawer-target="drawer-update-product-default" data-drawer-show="drawer-update-product-default" aria-controls="drawer-update-product-default" data-drawer-placement="right" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                                                     <Link href={`projekts/${ele.id}`}> More Details</Link>
                                                 </button>
-                                                <button type="button" id="updateProductButton" data-drawer-target="drawer-update-product-default" data-drawer-show="drawer-update-product-default" aria-controls="drawer-update-product-default" data-drawer-placement="right" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                                                <button type="button" id="updateProductButton" data-drawer-target="drawer-update-product-default" data-drawer-show="drawer-update-product-default" aria-controls="drawer-update-product-default" data-drawer-placement="right" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-blue-800 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                                                     <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fillRule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path></svg>
                                                     <Link href={`projekts/updateProjekt/${ele.id}`}>Update</Link>
                                                 </button>
