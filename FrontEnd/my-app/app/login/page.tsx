@@ -35,17 +35,17 @@ const Login = () => {
                 throw new Error(data.error || 'Failed to login');
             }
     
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('isAuthenticated', 'true');
-            const decodedToken = jwtDecode<{ email: string }>(data.token);
-            setUser(decodedToken);
-            console.log(decodedToken);
+            localStorage.setItem('token', data.token)
+            localStorage.setItem('isAuthenticated', 'true')
+            const decodedToken = jwtDecode<{ email: string }>(data.token)
+            setUser(decodedToken)
+            console.log(decodedToken)
     
-            router.push('/projekts');
+            router.push('/projekts')
             return data;
         } catch (err: any) { // Specify the type of 'err' explicitly
-            console.error('Login failed:', err);
-            setError(err.message);
+            console.error('Login failed:', err)
+            setError(err.message)
         }
     }
 

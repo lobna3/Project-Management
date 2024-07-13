@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import Alert from "../components/alert";
 import Nav from "../components/Nav";
 
+
 interface Projekt {
     
     id: string,
@@ -24,7 +25,8 @@ interface Projekt {
         email: string,
         role: string
     }}
-
+   
+   
 const AllProjk = () => {
 
     const [projekts, setProjekts] = useState([])
@@ -32,6 +34,7 @@ const AllProjk = () => {
     const [title, setTitle] = useState("")
     const [open, setOpen] = useState(false)
     const [id, setId] = useState("")
+    
     const router = useRouter()
 
     const getProjekts = () => {
@@ -61,6 +64,8 @@ const AllProjk = () => {
     useEffect(() => {
         getProjekts()
     }, [refetsch])
+
+   
 
     return (
         <div>

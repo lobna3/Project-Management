@@ -1,19 +1,29 @@
 'use client'
 
-import React, { useState } from "react"
+import React, { useState,useEffect } from "react"
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import Nav from "@/app/components/Nav"
+import { jwtDecode } from "jwt-decode";
+
+interface User {
+    id:string
+    name: string;
+    email: string;
+    role: string;
+}
+
+
 
 const CreateProjekt = () => {
 
-
+    const [user, setUser] = useState<User>({id:"",name:"",email:"",role:""})
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [imageUrl, setImageUrl] = useState("")
     const [category, setCategory] = useState("")
     const [evaluation, setEvaluation] = useState("")
-    const [file, setFile] = useState('')
+    const [file, setFile] = useState("");
     const [loading, setLoading] = useState(false)
     const [res, setRes] = useState({})
     const router = useRouter()
@@ -32,7 +42,7 @@ const CreateProjekt = () => {
             data.append("imageUrl", imageUrl);
             data.append("category", category);
             data.append("evaluation", evaluation);
-            data.append("user_id", "14");
+            data.append("user_id", user.id);
 
             const config = {
                 headers: {
@@ -52,7 +62,17 @@ const CreateProjekt = () => {
             setLoading(false)
         }
     };
+    
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        const isAuthenticated = localStorage.getItem('isAuthenticated')
+        if (token && isAuthenticated) {
+          const decodedToken :any= jwtDecode(token)
+          setUser(decodedToken)
+        }
+      }, [])
 
+      console.log(user)
 
     return (
         <div>
@@ -112,7 +132,8 @@ const CreateProjekt = () => {
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2">Upload Image:</label>
                         <img src={imageUrl} className='w-14 mt-6' />
-                        <input type="file" className="outline-none appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onChange={(e) => setFile(e.target.files[0])} />
+                        <input type="file" className="outline-none appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                         onChange={(e) => setFile(e.target.files[0])} />
                     </div>
 
                     <button className=" ml-28 mt-8 bg-blue-800 hover:bg-blue text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" value="submit" onClick={() => {
