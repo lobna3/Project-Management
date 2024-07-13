@@ -42,6 +42,8 @@ export default function OneProjekt({ params }: { params: { slug: string } }) {
 
     return (
         <>
+         <div className="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200 lg:mt-1.5 dark:bg-gray-800 dark:border-gray-700">
+         <div className="w-full mb-1">
             <Nav />
             <div className="px-4 sm:px-0">
                 <h3 className="text-base font-semibold leading-7 text-gray-900">Projekt Information</h3>
@@ -94,6 +96,8 @@ export default function OneProjekt({ params }: { params: { slug: string } }) {
                         </dd>
                     </div>
                 </dl>
+            </div>
+            </div>
             </div>
         </>
     );
