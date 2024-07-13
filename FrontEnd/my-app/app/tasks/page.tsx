@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react"
 import Nav from "../components/Nav"
 import axios from "axios"
-
+import Link from "next/link"
 
 interface Projekt {
     id: number,
@@ -108,10 +108,10 @@ const Tasks = () => {
                                                 <li>Task Title: {task.title}</li>
                                             </ul>)}</td>
                                             <td className="p-4 space-x-2 whitespace-nowrap">
-                                                <button id="createProductButton" type="submit" className="text-white bg-blue-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
+                                                <button id="createProductButton" type="submit" className="text-white bg-blue-900 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
                                                     data-drawer-target="drawer-create-product-default" data-drawer-show="drawer-create-product-default" aria-controls="drawer-create-product-default" data-drawer-placement="right"
                                                 >
-                                                    Add new Tasks
+                                                     <Link href={`tasks/addTask/${ele.id}`}>Add New Task</Link>
                                                 </button>
 
                                             </td>
