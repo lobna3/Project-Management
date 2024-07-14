@@ -136,9 +136,9 @@ const CreateProjekt = () => {
                          onChange={(e) => setFile(e.target.files[0])} />
                     </div>
 
-                    <button className=" ml-28 mt-8 bg-blue-800 hover:bg-blue text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" value="submit" onClick={() => {
+                    <button className=" ml-28 mt-8 bg-blue-900 hover:bg-blue text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" value="submit" onClick={() => {
                         handleUpload()
-                    }}>Create New Projekt</button>
+                    }}>Create New Project</button>
                 </div>
 
 
