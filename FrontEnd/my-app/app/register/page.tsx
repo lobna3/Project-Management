@@ -62,7 +62,7 @@ const Register = () => {
           name,
           email,
           password,
-          role: 'Admin',
+          role:'User',
         }),
       });
 

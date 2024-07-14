@@ -8,9 +8,19 @@ import { useRouter } from 'next/navigation'
 import Alert from "../components/alert";
 import Nav from "../components/Nav";
 
+import { jwtDecode } from "jwt-decode";
+
+
+interface User {
+    id: string
+    name: string;
+    email: string;
+    role: string;
+}
+
 
 interface Projekt {
-    
+
     id: string,
     title: string,
     description: string,
@@ -24,17 +34,19 @@ interface Projekt {
         name: string,
         email: string,
         role: string
-    }}
-   
-   
-const AllProjk = () => {
+    }
+}
 
+
+const AllProjects = () => {
+
+    const [user, setUser] = useState<User>({ id: "", name: "", email: "", role: "" });
     const [projekts, setProjekts] = useState([])
     const [refetsch, setRefetsch] = useState(false)
     const [title, setTitle] = useState("")
     const [open, setOpen] = useState(false)
     const [id, setId] = useState("")
-    
+
     const router = useRouter()
 
     const getProjekts = () => {
@@ -65,7 +77,24 @@ const AllProjk = () => {
         getProjekts()
     }, [refetsch])
 
-   
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const isAuthenticated = localStorage.getItem('isAuthenticated');
+
+        // Check if token and isAuthenticated are set
+        if (token && isAuthenticated) {
+            const decodedToken: any = jwtDecode(token);
+            setUser({
+                id: decodedToken.id,
+                name: decodedToken.name,
+                email: decodedToken.email,
+                role: decodedToken.role
+            });
+        }
+    }, []);
+
+    console.log(user); // Output user details to console (for debugging)
+
 
     return (
         <div>
@@ -73,7 +102,7 @@ const AllProjk = () => {
                 <div className="w-full mb-1">
                     <div className="mb-4">
                         <Nav />
-                        <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">All pojects</h1>
+                        <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">All projects</h1>
                     </div>
                     <div className="items-center justify-between block sm:flex md:divide-x md:divide-gray-100 dark:divide-gray-700">
                         <div className="flex items-center mb-4 sm:mb-0">
@@ -97,11 +126,12 @@ const AllProjk = () => {
                                 </div>
                             </div>
                         </div>
-                        <button onClick={() => router.push('/projekts/addProjekt')} id="createProductButton" type="submit" className="text-white bg-blue-900 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
+                        {user.role === "Admin" && <button onClick={() => router.push('/projekts/addProjekt')} id="createProductButton" type="submit" className="text-white bg-blue-900 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
                             data-drawer-target="drawer-create-product-default" data-drawer-show="drawer-create-product-default" aria-controls="drawer-create-product-default" data-drawer-placement="right"
                         >
                             Add new project
-                        </button>
+                        </button>}
+
                     </div>
 
                 </div>
@@ -168,7 +198,7 @@ const AllProjk = () => {
                                                 <img src={ele.imageUrl} alt="" />
                                             </td>
                                             <td className="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{moment(ele.createdAt).format("DD MM YYYY hh:mm:ss")}</td>
-                                            <td className="p-4 space-x-2 whitespace-nowrap">
+                                            {user.role === "Admin" && <td className="p-4 space-x-2 whitespace-nowrap">
                                                 <button type="button" id="updateProductButton" data-drawer-target="drawer-update-product-default" data-drawer-show="drawer-update-product-default" aria-controls="drawer-update-product-default" data-drawer-placement="right" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                                                     <Link href={`projekts/${ele.id}`}> More Details</Link>
                                                 </button>
@@ -180,7 +210,14 @@ const AllProjk = () => {
                                                     <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
                                                     Delete
                                                 </button>
-                                            </td>
+                                            </td>}
+                                            {user.role === "User" && <td className="p-4 space-x-2 whitespace-nowrap">
+                                                <button type="button" id="updateProductButton" data-drawer-target="drawer-update-product-default" data-drawer-show="drawer-update-product-default" aria-controls="drawer-update-product-default" data-drawer-placement="right" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                                                    <Link href={`projekts/${ele.id}`}> More Details</Link>
+                                                </button>
+
+                                            </td>}
+
                                         </tr>
                                     )}
                                 </tbody>
@@ -218,4 +255,4 @@ const AllProjk = () => {
     )
 }
 
-export default AllProjk
+export default AllProjects
