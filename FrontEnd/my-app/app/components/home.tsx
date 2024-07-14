@@ -69,7 +69,7 @@ const HomePage = () => {
                 <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
 
                     <div className="text-center">
-                        <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Welcome To Project Managment</h1>
+                        <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Welcome To Project Management</h1>
 
                     </div>
                 </div>

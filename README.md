@@ -29,7 +29,8 @@ Project Management Functionality
 Objective: Enable admin users to manage projects and associated tasks.
 Tasks:
 
-//Interface Admin
+Interface Admin
+
 Create Project:
 Implement a form or interface to create new projects.
 Validate and save project details in the database.
@@ -54,7 +55,8 @@ Provide interfaces to add new tasks to projects.
 Implement deletion of tasks.
 
 
-//Interface User
+Interface User
+
 List Projects:
 Fetch and display a list of all projects for  users.
 
