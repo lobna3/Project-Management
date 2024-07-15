@@ -10,6 +10,11 @@ module.exports = {
                     {
                         model: Projekt, as: "projekt", attributes: ["title", "description", "category",
                             "evaluation", "user_id", "imageUrl"],
+                    },
+                    {
+                        model: User,
+                        as: 'users',
+                        attributes: ["id", "name", "email", "role"], 
                     }
                 ]
             });

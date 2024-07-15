@@ -50,11 +50,15 @@ db.Task.belongsTo(db.Projekt,{
 // USers Tasks Association
 db.User.belongsToMany(db.Task, {
     through: 'UsersTasks',
-   
+    as: "tasks",
+    foreignKey: "userId",
+    onDelete: "CASCADE",
 })
 db.Task.belongsToMany(db.User, {
     through: 'UsersTasks',
-   
+    as: "users",
+    foreignKey: "taskId",
+    onDelete: "CASCADE", 
 })
 
 
